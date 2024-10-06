@@ -1,0 +1,91 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Average Length of Stay",
+    "width": 400,
+    "height": 400,
+    "description": "Average Length of Stay by Country (2015 onwards).",
+    "data": {
+      "url": "https://raw.githubusercontent.com/AliciaT1402/FIT3179_HW4/main/avgLengthOfStay_bar.csv"
+    },
+    "layer": [
+      {
+        "mark": {
+          "type": "bar",
+          "color": "#a63603"
+        },
+        "params": [
+          {
+            "name": "Country",
+            "select": { "type": "point", "fields": ["Entity"] },
+            "bind": {
+              "Entity": {
+                "input": "select",
+                "options": [
+                  null,
+                  "France",
+                  "Spain",
+                  "Italy",
+                  "Turkey",
+                  "Mexico",
+                  "Thailand",
+                  "Germany",
+                  "Japan",
+                  "Austria",
+                  "Greece"
+                ],
+                "labels": [
+                  "All",
+                  "France",
+                  "Spain",
+                  "Italy",
+                  "Turkey",
+                  "Mexico",
+                  "Thailand",
+                  "Germany",
+                  "Japan",
+                  "Austria",
+                  "Greece"
+                ],
+                "name": "Country Selection: "
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "transform": [
+      {
+        "filter": "datum.Year >= 2015"
+      },
+      {
+        "filter": { "param": "Country", "field": "Entity" }
+      }
+    ],
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      "y": {
+        "field": "Average length of stay",
+        "type": "quantitative",
+        "title": "Average Length of Stay"
+      },
+      "color": {
+        "field": "Entity",
+        "type": "nominal",
+        "title": "Country"
+      },
+      "tooltip": [
+        { "field": "Entity", "type": "nominal", "title": "Country" },
+        { "field": "Year", "type": "ordinal", "title": "Year" },
+        {
+          "field": "Average length of stay",
+          "type": "quantitative",
+          "format": ".2f",
+          "title": "Avg Length of Stay"
+        }
+      ]
+    }
+  }
